@@ -105,5 +105,4 @@ stages:
                 targetType: 'inline'
                 script: |
                   # Write your PowerShell commands here.
-                  
-                  iwr -uri https://cristiantirel.azurewebsites.net/WeatherForecast      
+                  iwr -uri https://cristiantirel.azurewebsites.net/WeatherForecast
