@@ -78,31 +78,31 @@ stages:
                   # Write your PowerShell commands here.
                   iwr -uri https://cristiantirel.azurewebsites.net/WeatherForecast
 
-#  - stage: Production
-#    displayName: Production
-#    dependsOn: build
-#    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
-#    jobs:
-#    - deployment: deploy
-#      displayName: Release
-#      pool:
-#        vmImage: 'windows-latest'
-#      environment: Release
-#      strategy:
-#        runOnce:
-#          deploy:
-#            steps:
-#             - task: AzureRmWebAppDeployment@4
-#               inputs:
-#                 ConnectionType: 'AzureRM'
-#                 azureSubscription: 'training_service_connection'
-#                 appType: 'webApp'
-#                 WebAppName: 'cristiantirel'
-#                 packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
-#             - task: PowerShell@2
-#               inputs: 
-#                 targetType: 'inline'
-#                 script: |
-#                   # Write your PowerShell commands here.
+ - stage: Production
+   displayName: Production
+   dependsOn: build
+   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+   jobs:
+   - deployment: deploy
+     displayName: Release
+     pool:
+       vmImage: 'windows-latest'
+     environment: Release
+     strategy:
+       runOnce:
+         deploy:
+           steps:
+            - task: AzureRmWebAppDeployment@4
+              inputs:
+                ConnectionType: 'AzureRM'
+                azureSubscription: 'training_service_connection'
+                appType: 'webApp'
+                WebAppName: 'cristiantirel'
+                packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
+            - task: PowerShell@2
+              inputs: 
+                targetType: 'inline'
+                script: |
+                  # Write your PowerShell commands here.
                   
-#                   iwr -uri https://cristiantirel.azurewebsites.net/WeatherForecast      
+                  iwr -uri https://cristiantirel.azurewebsites.net/WeatherForecast      
